@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 @Entity
+public
 class Mission {
     @Id
     private String name;
