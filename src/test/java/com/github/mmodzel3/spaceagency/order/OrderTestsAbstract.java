@@ -24,7 +24,7 @@ abstract class OrderTestsAbstract extends ProductTestsAbstract {
     @BeforeEach
     protected void setUp() {
         orderRepository.deleteAll();
-        
+
         super.setUp();
     }
 
