@@ -26,4 +26,9 @@ class MissionTestsAbstract {
                 .endDate(LocalDateTime.now())
                 .build();
     }
+
+    void createAndSaveTestMission() {
+        Mission mission = createTestMission();
+        missionRepository.save(mission);
+    }
 }

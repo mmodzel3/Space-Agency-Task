@@ -18,11 +18,6 @@ class MissionServiceTests extends MissionTestsAbstract {
     @Autowired
     private MissionService missionService;
 
-    void createAndSaveTestMission() {
-        Mission mission = createTestMission();
-        missionRepository.save(mission);
-    }
-
     @Test
     void whenAddThenMissionIsAdded() {
         Mission mission = createTestMission();
