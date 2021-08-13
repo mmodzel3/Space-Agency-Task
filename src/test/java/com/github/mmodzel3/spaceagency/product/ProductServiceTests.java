@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -32,5 +34,14 @@ class ProductServiceTests extends ProductTestsAbstract {
         productService.remove(product.getId());
 
         assertEquals(ZERO_PRODUCTS, productRepository.count());
+    }
+
+    @Test
+    void whenFindByMissionNameThenGotAll() {
+        createAndSaveTestMissionAndProduct();
+
+        List<Product> products = productService.findByMissionName(TEST_MISSION_NAME);
+
+        assertEquals(ONE_PRODUCT, products.size());
     }
 }

@@ -2,6 +2,8 @@ package com.github.mmodzel3.spaceagency.product;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 class ProductService {
     private final ProductRepository productRepository;
@@ -10,11 +12,15 @@ class ProductService {
         this.productRepository = productRepository;
     }
 
-    public void add(Product product) {
+    void add(Product product) {
         productRepository.save(product);
     }
 
-    public void remove(Long id) {
+    void remove(Long id) {
         productRepository.deleteById(id);
+    }
+
+    List<Product> findByMissionName(String missionName) {
+        return productRepository.findAllByMissionName(missionName);
     }
 }

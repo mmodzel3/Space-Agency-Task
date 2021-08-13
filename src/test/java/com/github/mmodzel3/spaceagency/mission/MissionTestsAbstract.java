@@ -9,7 +9,7 @@ import java.time.Period;
 
 @SpringBootTest
 public abstract class MissionTestsAbstract {
-    final static String TEST_MISSION_NAME = "mission";
+    protected final static String TEST_MISSION_NAME = "mission";
 
     @Autowired
     MissionRepository missionRepository;
