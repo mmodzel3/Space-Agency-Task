@@ -68,12 +68,30 @@ class ProductServiceTests extends ProductTestsAbstract {
     }
 
     @Test
+    void whenFindByDateBeforeNoDataThenGotNoData() {
+        createAndSaveTestMissionAndProduct();
+
+        List<Product> products = productService.findByDateBefore(LocalDateTime.now().minusDays(TEST_PRODUCT_DATE_DAYS_DIFF + 3));
+
+        assertEquals(ZERO_PRODUCTS, products.size());
+    }
+
+    @Test
     void whenFindByDateAfterThenGotAll() {
         createAndSaveTestMissionAndProduct();
 
         List<Product> products = productService.findByDateAfter(LocalDateTime.now().minusDays(TEST_PRODUCT_DATE_DAYS_DIFF + 1));
 
         assertEquals(ONE_PRODUCT, products.size());
+    }
+
+    @Test
+    void whenFindByDateAfterNoDataThenGotNoData() {
+        createAndSaveTestMissionAndProduct();
+
+        List<Product> products = productService.findByDateAfter(LocalDateTime.now());
+
+        assertEquals(ZERO_PRODUCTS, products.size());
     }
 
     @Test
@@ -84,5 +102,15 @@ class ProductServiceTests extends ProductTestsAbstract {
                 LocalDateTime.now());
 
         assertEquals(ONE_PRODUCT, products.size());
+    }
+
+    @Test
+    void whenFindByDateBetweenNoDataThenGotNoData() {
+        createAndSaveTestMissionAndProduct();
+
+        List<Product> products = productService.findByDateBetween(LocalDateTime.now().minusDays(TEST_PRODUCT_DATE_DAYS_DIFF + 2),
+                LocalDateTime.now().minusDays(TEST_PRODUCT_DATE_DAYS_DIFF + 1));
+
+        assertEquals(ZERO_PRODUCTS, products.size());
     }
 }
