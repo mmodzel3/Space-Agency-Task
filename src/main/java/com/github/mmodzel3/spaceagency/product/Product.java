@@ -1,9 +1,7 @@
 package com.github.mmodzel3.spaceagency.product;
 
 import com.github.mmodzel3.spaceagency.mission.Mission;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
@@ -15,10 +13,12 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 class Product {
     @Id
     @GeneratedValue
-    private String id;
+    private Long id;
 
     @ManyToOne
     private Mission mission;

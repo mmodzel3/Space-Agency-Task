@@ -8,14 +8,14 @@ import java.time.LocalDateTime;
 import java.time.Period;
 
 @SpringBootTest
-class MissionTestsAbstract {
+public abstract class MissionTestsAbstract {
     final static String TEST_MISSION_NAME = "mission";
 
     @Autowired
     MissionRepository missionRepository;
 
     @BeforeEach
-    void setUp() {
+    protected void setUp() {
         missionRepository.deleteAll();
     }
 
@@ -27,8 +27,9 @@ class MissionTestsAbstract {
                 .build();
     }
 
-    void createAndSaveTestMission() {
+    protected Mission createAndSaveTestMission() {
         Mission mission = createTestMission();
         missionRepository.save(mission);
+        return mission;
     }
 }
