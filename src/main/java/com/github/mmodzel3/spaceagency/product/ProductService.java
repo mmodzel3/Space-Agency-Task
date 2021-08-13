@@ -5,9 +5,10 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Service
-class ProductService {
+public class ProductService {
     private final ProductRepository productRepository;
 
     public ProductService(ProductRepository productRepository) {
@@ -24,6 +25,16 @@ class ProductService {
 
     List<Product> findAll() {
         return productRepository.findAll();
+    }
+
+    public List<Product> findByIds(Set<Long> ids) throws ProductNotFoundException {
+        List<Product> products = productRepository.findAllById(ids);
+
+        if (products.size() != ids.size()) {
+            throw new ProductNotFoundException();
+        }
+
+        return products;
     }
 
     List<Product> findByMissionName(String missionName) {

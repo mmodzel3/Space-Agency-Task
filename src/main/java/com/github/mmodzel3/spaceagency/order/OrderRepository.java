@@ -1,8 +1,8 @@
-package com.github.mmodzel3.spaceagency.mission;
+package com.github.mmodzel3.spaceagency.order;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-interface MissionRepository extends JpaRepository<Mission, String> {
+interface OrderRepository extends JpaRepository<Order, Long> {
 }

@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDateTime;
 
 @SpringBootTest
-abstract class ProductTestsAbstract extends MissionTestsAbstract {
+public abstract class ProductTestsAbstract extends MissionTestsAbstract {
     final static int TEST_PRODUCT_PRICE = 200;
     final static double TEST_PRODUCT_X1 = 21.5;
     final static double TEST_PRODUCT_Y1 = 19.5;
@@ -40,7 +40,7 @@ abstract class ProductTestsAbstract extends MissionTestsAbstract {
                 .build();
     }
 
-    Product createAndSaveTestMissionAndProduct() {
+    protected Product createAndSaveTestMissionAndProduct() {
         Mission mission = createAndSaveTestMission();
         Product product = createTestProduct(mission);
 

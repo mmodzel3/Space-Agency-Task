@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 class ProductServiceTests extends ProductTestsAbstract {
@@ -36,6 +38,23 @@ class ProductServiceTests extends ProductTestsAbstract {
         productService.remove(product.getId());
 
         assertEquals(ZERO_PRODUCTS, productRepository.count());
+    }
+
+    @Test
+    void whenFindByIdsThenGotAll() throws ProductNotFoundException {
+        Product product = createAndSaveTestMissionAndProduct();
+
+        List<Product> products = productService.findByIds(Collections.singleton(product.getId()));
+
+        assertEquals(ONE_PRODUCT, products.size());
+    }
+
+    @Test
+    void whenFindByIdsWithWrongIdThenGotException() {
+        Product product = createAndSaveTestMissionAndProduct();
+
+        assertThrows(ProductNotFoundException.class, () ->
+                productService.findByIds(Collections.singleton(product.getId() + 1)));
     }
 
     @Test
