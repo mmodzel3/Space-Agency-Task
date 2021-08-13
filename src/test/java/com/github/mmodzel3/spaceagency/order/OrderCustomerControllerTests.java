@@ -11,7 +11,7 @@ import static com.github.mmodzel3.spaceagency.user.UserCustomerRequestBuilder.gi
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class OrderControllerTests extends OrderTestsAbstract {
+class OrderCustomerControllerTests extends OrderTestsAbstract {
     private final static long FAKE_ID = -1;
     private final static int ONE_ORDER = 1;
 

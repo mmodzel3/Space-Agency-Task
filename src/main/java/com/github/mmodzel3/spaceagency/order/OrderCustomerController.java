@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-class OrderController {
+class OrderCustomerController {
     private final OrderService orderService;
 
-    OrderController(OrderService orderService) {
+    OrderCustomerController(OrderService orderService) {
         this.orderService = orderService;
     }
 
