@@ -1,5 +1,6 @@
 package com.github.mmodzel3.spaceagency.security;
 
+import com.github.mmodzel3.spaceagency.user.UserRole;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,11 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final AuthenticationProvider authenticationProvider;
 
-    private static final RequestMatcher PROTECTED_URLS = new OrRequestMatcher(
+    private static final RequestMatcher MANAGER_PROTECTED_URLS = new OrRequestMatcher(
+            new AntPathRequestMatcher("/api/admin/**")
+    );
+
+    private static final RequestMatcher CUSTOMER_PROTECTED_URLS = new OrRequestMatcher(
             new AntPathRequestMatcher("/api/**")
     );
 
@@ -32,7 +37,10 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .requestMatchers(PROTECTED_URLS).authenticated()
+                .requestMatchers(MANAGER_PROTECTED_URLS).hasRole(UserRole.MANAGER.toString())
+                .and()
+                .authorizeRequests()
+                .requestMatchers(CUSTOMER_PROTECTED_URLS).hasRole(UserRole.CUSTOMER.toString())
                 .and()
                 .authenticationProvider(authenticationProvider)
                 .httpBasic();
