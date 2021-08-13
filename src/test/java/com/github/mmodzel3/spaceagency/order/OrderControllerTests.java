@@ -19,10 +19,25 @@ class OrderControllerTests extends OrderTestsAbstract {
     private int port;
 
     @Test
+    void whenGetCustomerOrdersThenGotCorrectData() {
+        createAndSaveOrder(CUSTOMER);
+        createAndSaveOrder(MANAGER);
+
+        Order[] orders = given().port(port)
+                .get("/api/orders")
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(Order[].class);
+
+        assertEquals(ONE_ORDER, orders.length);
+    }
+
+    @Test
     void whenMakeEmptyOrderThenGotError() {
         given().port(port)
                 .body(Collections.EMPTY_SET)
-                .post("/api/order")
+                .post("/api/orders")
                 .then()
                 .statusCode(500);
     }
@@ -31,7 +46,7 @@ class OrderControllerTests extends OrderTestsAbstract {
     void whenMakeOrderWithInvalidProductIdThenGotError() {
         given().port(port)
                 .body(Collections.singleton(FAKE_ID))
-                .post("/api/order")
+                .post("/api/orders")
                 .then()
                 .statusCode(500);
     }
@@ -40,7 +55,7 @@ class OrderControllerTests extends OrderTestsAbstract {
     void whenMakeOrderWithCorrectProductItIsAdded() {
         given().port(port)
                 .body(createProductsAndGetIds())
-                .post("/api/order")
+                .post("/api/orders")
                 .then()
                 .statusCode(200);
 
