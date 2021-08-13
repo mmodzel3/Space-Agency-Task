@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class ProductServiceTests extends ProductTestsAbstract {
+    private final static int ZERO = 0;
     private final static long ZERO_PRODUCTS = 0;
     private final static long ONE_PRODUCT = 1;
 
@@ -43,5 +44,16 @@ class ProductServiceTests extends ProductTestsAbstract {
         List<Product> products = productService.findByMissionName(TEST_MISSION_NAME);
 
         assertEquals(ONE_PRODUCT, products.size());
+        assertEquals(TEST_MISSION_NAME, products.get(ZERO).getMission().getName());
+    }
+
+    @Test
+    void whenFindByMissionTypeThenGotAll() {
+        createAndSaveTestMissionAndProduct();
+
+        List<Product> products = productService.findByMissionType(TEST_MISSION_TYPE);
+
+        assertEquals(ONE_PRODUCT, products.size());
+        assertEquals(TEST_MISSION_TYPE, products.get(ZERO).getMission().getType());
     }
 }

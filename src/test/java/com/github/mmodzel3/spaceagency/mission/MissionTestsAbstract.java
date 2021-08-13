@@ -10,6 +10,7 @@ import java.time.Period;
 @SpringBootTest
 public abstract class MissionTestsAbstract {
     protected final static String TEST_MISSION_NAME = "mission";
+    protected final static MissionType TEST_MISSION_TYPE = MissionType.PANCHROMATIC;
 
     @Autowired
     MissionRepository missionRepository;
@@ -22,6 +23,7 @@ public abstract class MissionTestsAbstract {
     Mission createTestMission() {
         return Mission.builder()
                 .name(TEST_MISSION_NAME)
+                .type(TEST_MISSION_TYPE)
                 .startDate(LocalDateTime.now().minus(Period.ofDays(10)))
                 .endDate(LocalDateTime.now())
                 .build();

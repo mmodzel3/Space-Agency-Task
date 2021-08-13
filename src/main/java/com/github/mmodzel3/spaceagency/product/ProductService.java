@@ -1,5 +1,6 @@
 package com.github.mmodzel3.spaceagency.product;
 
+import com.github.mmodzel3.spaceagency.mission.MissionType;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,5 +23,9 @@ class ProductService {
 
     List<Product> findByMissionName(String missionName) {
         return productRepository.findAllByMissionName(missionName);
+    }
+
+    List<Product> findByMissionType(MissionType type) {
+        return productRepository.findAllByMissionType(type);
     }
 }
