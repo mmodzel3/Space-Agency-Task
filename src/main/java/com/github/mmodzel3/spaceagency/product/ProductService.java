@@ -3,6 +3,7 @@ package com.github.mmodzel3.spaceagency.product;
 import com.github.mmodzel3.spaceagency.mission.MissionType;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -27,5 +28,17 @@ class ProductService {
 
     List<Product> findByMissionType(MissionType type) {
         return productRepository.findAllByMissionType(type);
+    }
+
+    List<Product> findByDateBefore(LocalDateTime date) {
+        return productRepository.findAllByAcquisitionDateBefore(date);
+    }
+
+    List<Product> findByDateAfter(LocalDateTime date) {
+        return productRepository.findAllByAcquisitionDateAfter(date);
+    }
+
+    List<Product> findByDateBetween(LocalDateTime startDate, LocalDateTime endDate) {
+        return productRepository.findAllByAcquisitionDateBetween(startDate, endDate);
     }
 }

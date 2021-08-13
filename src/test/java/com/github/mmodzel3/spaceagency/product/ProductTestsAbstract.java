@@ -15,6 +15,7 @@ abstract class ProductTestsAbstract extends MissionTestsAbstract {
     final static double TEST_PRODUCT_Y1 = 19.5;
     final static double TEST_PRODUCT_X2 = 20.0;
     final static double TEST_PRODUCT_Y2 = 15.0;
+    final static int TEST_PRODUCT_DATE_DAYS_DIFF = 10;
     final static String TEST_PRODUCT_URL = "http://website.com/file.jpg";
 
     @Autowired
@@ -29,7 +30,7 @@ abstract class ProductTestsAbstract extends MissionTestsAbstract {
     Product createTestProduct(Mission mission) {
         return Product.builder()
                 .mission(mission)
-                .acquisitionDate(LocalDateTime.now().minusDays(10))
+                .acquisitionDate(LocalDateTime.now().minusDays(TEST_PRODUCT_DATE_DAYS_DIFF))
                 .price(TEST_PRODUCT_PRICE)
                 .x1(TEST_PRODUCT_X1)
                 .y1(TEST_PRODUCT_Y1)
