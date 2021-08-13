@@ -27,4 +27,18 @@ class ProductCustomerControllerTests extends ProductTestsAbstract {
 
         assertEquals(ONE_PRODUCT, products.length);
     }
+
+    @Test
+    void whenGetProductsByMissionTypeThenGotData() {
+        createAndSaveTestMissionAndProduct();
+
+        Product[] products = given().port(port)
+                .get("/api/mission/type/" + TEST_MISSION_TYPE + "/products")
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(Product[].class);
+
+        assertEquals(ONE_PRODUCT, products.length);
+    }
 }
