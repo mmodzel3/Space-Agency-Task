@@ -1,13 +1,17 @@
 package com.github.mmodzel3.spaceagency.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Collection;
 import java.util.Collections;
@@ -15,11 +19,17 @@ import java.util.Collections;
 @Getter
 @Builder
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class User implements UserDetails {
 
     private static final String ROLE_PREFIX = "ROLE_";
 
     @Id
+    @GeneratedValue
+    private Long id;
+
+    @Column(unique = true)
     private String username;
 
     private String password;

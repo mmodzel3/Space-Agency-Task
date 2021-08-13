@@ -1,5 +1,6 @@
 package com.github.mmodzel3.spaceagency.user;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -14,5 +15,13 @@ public class UserService {
 
     public Optional<User> findUser(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    public void addUser(User user) throws UserExists {
+        try {
+            userRepository.save(user);
+        } catch (DataIntegrityViolationException e) {
+            throw new UserExists();
+        }
     }
 }
