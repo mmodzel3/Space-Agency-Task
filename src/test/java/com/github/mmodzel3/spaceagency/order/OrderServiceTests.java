@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Collections;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,5 +35,15 @@ class OrderServiceTests extends OrderTestsAbstract {
         orderService.makeOrder(getActiveUser(), createProductsAndGetIds());
 
         assertEquals(ONE_ORDER, orderRepository.count());
+    }
+
+    @Test
+    void whenFindCustomerOrdersThenGotCorrectData() {
+        createAndSaveOrder(CUSTOMER);
+        createAndSaveOrder(MANAGER);
+
+        List<Order> orders = orderService.findCustomerOrders(getActiveUser(CUSTOMER));
+
+        assertEquals(ONE_ORDER, orders.size());
     }
 }

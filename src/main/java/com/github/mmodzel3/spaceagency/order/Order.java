@@ -2,10 +2,13 @@ package com.github.mmodzel3.spaceagency.order;
 
 import com.github.mmodzel3.spaceagency.product.Product;
 import com.github.mmodzel3.spaceagency.user.User;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Entity(name = "orders")
@@ -24,5 +27,5 @@ class Order {
     @JoinTable(name = "order_products",
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private List<Product> products;
+    private Set<Product> products;
 }
