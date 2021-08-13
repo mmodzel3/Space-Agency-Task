@@ -22,6 +22,10 @@ class ProductService {
         productRepository.deleteById(id);
     }
 
+    List<Product> findAll() {
+        return productRepository.findAll();
+    }
+
     List<Product> findByMissionName(String missionName) {
         return productRepository.findAllByMissionName(missionName);
     }
