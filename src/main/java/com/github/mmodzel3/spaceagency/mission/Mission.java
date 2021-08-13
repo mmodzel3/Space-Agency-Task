@@ -1,8 +1,6 @@
 package com.github.mmodzel3.spaceagency.mission;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
@@ -13,8 +11,9 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 @Entity
-public
-class Mission {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Mission {
     @Id
     private String name;
 
