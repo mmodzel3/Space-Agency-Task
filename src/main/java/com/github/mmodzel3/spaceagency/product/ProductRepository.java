@@ -14,4 +14,5 @@ interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAllByAcquisitionDateBefore(LocalDateTime date);
     List<Product> findAllByAcquisitionDateAfter(LocalDateTime date);
     List<Product> findAllByAcquisitionDateBetween(LocalDateTime startDate, LocalDateTime endDate);
+    List<Product> findAllByX1GreaterThanEqualAndY1GreaterThanEqualAndX2IsLessThanEqualAndY2IsLessThanEqual(Double x1, Double y1, Double x2, Double y2);
 }

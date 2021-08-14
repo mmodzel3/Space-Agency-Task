@@ -132,4 +132,22 @@ class ProductServiceTests extends ProductTestsAbstract {
 
         assertEquals(ZERO_PRODUCTS, products.size());
     }
+
+    @Test
+    void whenFindCoveringPointWithNoCoveringProductsThenGotNoData() {
+        createAndSaveTestMissionAndProduct();
+
+        List<Product> products = productService.findCoveringPoint(TEST_PRODUCT_X1 - 1, TEST_PRODUCT_Y1 -1);
+
+        assertEquals(ZERO_PRODUCTS, products.size());
+    }
+
+    @Test
+    void whenFindCoveringPointThenGotData() {
+        createAndSaveTestMissionAndProduct();
+
+        List<Product> products = productService.findCoveringPoint(TEST_PRODUCT_X1, TEST_PRODUCT_Y1);
+
+        assertEquals(ONE_PRODUCT, products.size());
+    }
 }

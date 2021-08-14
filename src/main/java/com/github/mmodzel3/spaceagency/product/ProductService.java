@@ -56,4 +56,8 @@ public class ProductService {
     List<Product> findByDateBetween(LocalDateTime startDate, LocalDateTime endDate) {
         return productRepository.findAllByAcquisitionDateBetween(startDate, endDate);
     }
+
+    List<Product> findCoveringPoint(double x, double y) {
+        return productRepository.findAllByX1GreaterThanEqualAndY1GreaterThanEqualAndX2IsLessThanEqualAndY2IsLessThanEqual(x, y, x, y);
+    }
 }
