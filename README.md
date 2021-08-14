@@ -112,13 +112,11 @@ API is divided for Manager and Customer roles.
 * GET /api/orders/most/missions
 
 ### Example requests
-* curl -u manager:manager http://localhost:8080/api/admin/missions -H "Content-Type: application/jso
-n" -d '{ "name": "MissionX", "type": "PANCHROMATIC", "startDate": "2021-08-14T15:43:32.951", "endDate": "2021-08-14T15:4
-3:32.951" }'
+* curl -u manager:manager http://localhost:8080/api/admin/missions -H "Content-Type: application/json" -d '{ "name": "MissionX", "type": "PANCHROMATIC", "startDate": "2021-08-14T15:43:32.951", "endDate": "2021-08-14T15:43:32.951" }'
 * curl -u customer:customer http://localhost:8080/api/products?startDate=2021-08-14T15:43:32.951
 
 ## Testing
-mvn spring-boot:test
+mvn test
 
 ## Technologies
 * Java Spring (JPA)
