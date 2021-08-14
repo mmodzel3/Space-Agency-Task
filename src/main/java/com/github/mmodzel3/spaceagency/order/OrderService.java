@@ -40,18 +40,4 @@ class OrderService {
     List<Order> findCustomerOrders(User user) {
         return orderRepository.findAllByCustomer(user);
     }
-
-    Optional<Product> getMostOrderedProduct() {
-        List<Order> orders = orderRepository.findAll();
-
-        Map<Product, Long> productsCounts = orders.stream()
-                .flatMap(order -> order.getProducts().stream())
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-
-        Optional<Map.Entry<Product, Long>> mostOrderedEntry = productsCounts.entrySet()
-                .stream()
-                .max(Comparator.comparing(Map.Entry::getValue));
-
-        return mostOrderedEntry.map(Map.Entry::getKey);
-    }
 }
