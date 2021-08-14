@@ -1,5 +1,6 @@
 package com.github.mmodzel3.spaceagency.order;
 
+import com.github.mmodzel3.spaceagency.product.Product;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -8,6 +9,7 @@ import java.util.Collections;
 
 import static com.github.mmodzel3.spaceagency.user.UserCustomerRequestBuilder.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class OrderCustomerControllerTests extends OrderTestsAbstract {
@@ -59,5 +61,32 @@ class OrderCustomerControllerTests extends OrderTestsAbstract {
                 .statusCode(200);
 
         assertEquals(ONE_ORDER, orderRepository.count());
+    }
+
+    @Test
+    void whenGetMostOrderedProductAndNoOrdersThenNothingReturned() {
+        Product product = given().port(port)
+                .get("/api/orders/most/product")
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(Product.class);
+
+        assertNull(product);
+    }
+
+    @Test
+    void whenGetMostOrderedProductThenGotCorrectData() {
+        Order order = createAndSaveOrder(CUSTOMER);
+        Product orderedProduct = order.getProducts().iterator().next();
+
+        Product product = given().port(port)
+                .get("/api/orders/most/product")
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(Product.class);
+
+        assertEquals(orderedProduct.getId(), product.getId());
     }
 }
