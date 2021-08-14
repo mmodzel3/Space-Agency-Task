@@ -1,13 +1,11 @@
 package com.github.mmodzel3.spaceagency.order;
 
 import com.github.mmodzel3.spaceagency.product.Product;
-import com.github.mmodzel3.spaceagency.product.ProductNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,6 +15,13 @@ class OrderStatisticsServiceTests extends OrderTestsAbstract {
 
     @Autowired
     OrderStatisticsService orderStatisticsService;
+
+    @Test
+    void whenGetMostOrderedProductAndNoProductsThenGotNothing() {
+        Optional<Product> possibleMostOrderedProduct = orderStatisticsService.getMostOrderedProduct();
+
+        assertFalse(possibleMostOrderedProduct.isPresent());
+    }
 
     @Test
     void whenGetMostOrderedProductThenGotIt() {
