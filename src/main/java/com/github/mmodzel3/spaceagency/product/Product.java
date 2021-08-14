@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
 @Getter
-@Entity
+@Entity(name = "products")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

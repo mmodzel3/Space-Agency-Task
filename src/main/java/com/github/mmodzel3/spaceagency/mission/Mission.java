@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
-@Entity
+@Entity(name = "missions")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Mission {
