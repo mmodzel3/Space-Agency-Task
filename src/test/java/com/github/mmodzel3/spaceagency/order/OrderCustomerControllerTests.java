@@ -1,5 +1,6 @@
 package com.github.mmodzel3.spaceagency.order;
 
+import com.github.mmodzel3.spaceagency.mission.Mission;
 import com.github.mmodzel3.spaceagency.product.Product;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -88,5 +89,33 @@ class OrderCustomerControllerTests extends OrderTestsAbstract {
                 .as(Product.class);
 
         assertEquals(orderedProduct.getId(), product.getId());
+    }
+
+    @Test
+    void whenGetMostOrderedMissionAndNoOrdersThenNothingReturned() {
+        Mission mission = given().port(port)
+                .get("/api/orders/most/mission")
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(Mission.class);
+
+        assertNull(mission);
+    }
+
+    @Test
+    void whenGetMostOrderedMissionThenGotCorrectData() {
+        Order order = createAndSaveOrder(CUSTOMER);
+        Product orderedProduct = order.getProducts().iterator().next();
+        Mission orderedMission = orderedProduct.getMission();
+
+        Mission mission = given().port(port)
+                .get("/api/orders/most/mission")
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(Mission.class);
+
+        assertEquals(orderedMission.getName(), mission.getName());
     }
 }

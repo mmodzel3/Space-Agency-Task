@@ -1,5 +1,6 @@
 package com.github.mmodzel3.spaceagency.order;
 
+import com.github.mmodzel3.spaceagency.mission.Mission;
 import com.github.mmodzel3.spaceagency.product.Product;
 import com.github.mmodzel3.spaceagency.product.ProductNotFoundException;
 import com.github.mmodzel3.spaceagency.user.User;
@@ -33,6 +34,11 @@ class OrderCustomerController {
     @GetMapping("/api/orders/most/product")
     Optional<Product> getMostOrderedProduct() {
         return orderStatisticsService.getMostOrderedProduct();
+    }
+
+    @GetMapping("/api/orders/most/mission")
+    Optional<Mission> getMostOrderedMission() {
+        return orderStatisticsService.getMostOrderedMission();
     }
 
 }
