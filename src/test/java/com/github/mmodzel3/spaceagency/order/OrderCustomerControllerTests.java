@@ -9,7 +9,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import java.util.Collections;
 
 import static com.github.mmodzel3.spaceagency.user.UserCustomerRequestBuilder.given;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class OrderCustomerControllerTests extends OrderTestsAbstract {
@@ -120,5 +120,20 @@ class OrderCustomerControllerTests extends OrderTestsAbstract {
                 .as(Mission[].class);
 
         assertEquals(orderedMission.getName(), missions[ZERO].getName());
+    }
+
+    @Test
+    void whenGetProductsThatAreBoughtThenUrlIsVisible() {
+        createAndSaveOrder(CUSTOMER);
+
+        Order[] orders = given().port(port)
+                .get("/api/orders")
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(Order[].class);
+
+        assertEquals(ONE_ORDER, orders.length);
+        assertNotNull(orders[ZERO].getProducts().iterator().next().getUrl());
     }
 }

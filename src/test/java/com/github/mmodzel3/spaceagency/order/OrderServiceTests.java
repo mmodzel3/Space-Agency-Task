@@ -1,5 +1,6 @@
 package com.github.mmodzel3.spaceagency.order;
 
+import com.github.mmodzel3.spaceagency.product.Product;
 import com.github.mmodzel3.spaceagency.product.ProductNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class OrderServiceTests extends OrderTestsAbstract {
@@ -46,5 +46,25 @@ class OrderServiceTests extends OrderTestsAbstract {
         List<Order> orders = orderService.findCustomerOrders(getActiveUser(CUSTOMER));
 
         assertEquals(ONE_ORDER, orders.size());
+    }
+
+    @Test
+    void whenDoesCustomerBoughtProductAndItWasBoughtThenGotTrue() {
+        Order order = createAndSaveOrder(CUSTOMER);
+        Product product = order.getProducts().iterator().next();
+
+        boolean bought = orderService.doesCustomerBoughtProduct(getActiveUser(CUSTOMER), product);
+
+        assertTrue(bought);
+    }
+
+    @Test
+    void whenDoesCustomerBoughtProductAndItWasNotBoughtThenGotFalse() {
+        Order order = createAndSaveOrder(MANAGER);
+        Product product = order.getProducts().iterator().next();
+
+        boolean bought = orderService.doesCustomerBoughtProduct(getActiveUser(CUSTOMER), product);
+
+        assertFalse(bought);
     }
 }

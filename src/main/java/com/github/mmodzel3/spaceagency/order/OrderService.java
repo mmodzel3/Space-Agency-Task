@@ -11,6 +11,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
+public
 class OrderService {
     private final OrderRepository orderRepository;
     private final ProductService productService;
@@ -39,5 +40,9 @@ class OrderService {
 
     List<Order> findCustomerOrders(User user) {
         return orderRepository.findAllByCustomer(user);
+    }
+
+    public boolean doesCustomerBoughtProduct(User customer, Product product) {
+        return orderRepository.existsByCustomerAndProductsIn(customer, Collections.singletonList(product));
     }
 }

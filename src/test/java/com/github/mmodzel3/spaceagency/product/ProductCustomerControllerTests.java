@@ -8,11 +8,13 @@ import java.time.LocalDateTime;
 
 import static com.github.mmodzel3.spaceagency.user.UserCustomerRequestBuilder.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ProductCustomerControllerTests extends ProductTestsAbstract {
     private final static int ZERO_PRODUCTS = 0;
     private final static int ONE_PRODUCT = 1;
+    private final static int ZERO = 0;
 
     @LocalServerPort
     private int port;
@@ -135,5 +137,20 @@ class ProductCustomerControllerTests extends ProductTestsAbstract {
                 .as(Product[].class);
 
         assertEquals(ONE_PRODUCT, products.length);
+    }
+
+    @Test
+    void whenGetProductsThatAreNotBoughtThenUrlIsHidden() {
+        createAndSaveTestMissionAndProduct();
+
+        Product[] products = given().port(port)
+                .get("/api/products")
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(Product[].class);
+
+        assertEquals(ONE_PRODUCT, products.length);
+        assertNull(products[ZERO].getUrl());
     }
 }
