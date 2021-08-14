@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.github.mmodzel3.spaceagency.order.OrderService;
 import com.github.mmodzel3.spaceagency.user.User;
+import com.github.mmodzel3.spaceagency.user.UserRole;
 import org.springframework.boot.jackson.JsonComponent;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,7 +37,7 @@ class ProductSerializer extends JsonSerializer<Product> {
         jsonGenerator.writeNumberField("y2", product.getY2());
         jsonGenerator.writeNumberField("price", product.getPrice());
 
-        if (orderService.doesCustomerBoughtProduct(user, product)) {
+        if (orderService.doesCustomerBoughtProduct(user, product) || user.getRole().equals(UserRole.MANAGER)) {
             jsonGenerator.writeStringField("url", product.getUrl());
         }
 
