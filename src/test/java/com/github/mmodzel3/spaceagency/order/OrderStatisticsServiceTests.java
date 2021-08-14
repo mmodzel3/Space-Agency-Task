@@ -7,25 +7,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Collections;
-import java.util.Optional;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class OrderStatisticsServiceTests extends OrderTestsAbstract {
+    private final static int ZERO = 0;
+    private final static int ZERO_PRODUCTS = 0;
+    private final static int ZERO_MISSIONS = 0;
 
     @Autowired
     OrderStatisticsService orderStatisticsService;
 
     @Test
-    void whenGetMostOrderedProductAndNoProductsThenGotNothing() {
-        Optional<Product> possibleMostOrderedProduct = orderStatisticsService.getMostOrderedProduct();
+    void whenGetMostOrderedProductsAndNoProductsThenGotNothing() {
+        List<Product> mostOrderedProducts = orderStatisticsService.getMostOrderedProducts();
 
-        assertFalse(possibleMostOrderedProduct.isPresent());
+        assertEquals(ZERO_PRODUCTS, mostOrderedProducts.size());
     }
 
     @Test
-    void whenGetMostOrderedProductThenGotIt() {
+    void whenGetMostOrderedProductsThenGotThem() {
         createAndSaveOrder(MANAGER);
 
         Order order = createAndSaveOrder(CUSTOMER);
@@ -33,21 +36,20 @@ class OrderStatisticsServiceTests extends OrderTestsAbstract {
 
         createAndSaveOrder(CUSTOMER, Collections.singleton(product));
 
-        Optional<Product> possibleMostOrderedProduct = orderStatisticsService.getMostOrderedProduct();
+        List<Product> mostOrderedProducts = orderStatisticsService.getMostOrderedProducts();
 
-        assertTrue(possibleMostOrderedProduct.isPresent());
-        assertEquals(product.getId(), possibleMostOrderedProduct.get().getId());
+        assertEquals(product.getId(), mostOrderedProducts.get(ZERO).getId());
     }
 
     @Test
-    void whenGetMostOrderedMissionAndNoProductsThenGotNothing() {
-        Optional<Mission> possibleMostOrderedMission = orderStatisticsService.getMostOrderedMission();
+    void whenGetMostOrderedMissionsAndNoProductsThenGotNothing() {
+        List<Mission> mostOrderedMissions = orderStatisticsService.getMostOrderedMissions();
 
-        assertFalse(possibleMostOrderedMission.isPresent());
+        assertEquals(ZERO_MISSIONS, mostOrderedMissions.size());
     }
 
     @Test
-    void whenGetMostOrderedMissionThenGotIt() {
+    void whenGetMostOrderedMissionsThenGotThem() {
         createAndSaveOrder(MANAGER);
 
         Order order = createAndSaveOrder(CUSTOMER);
@@ -56,9 +58,8 @@ class OrderStatisticsServiceTests extends OrderTestsAbstract {
 
         createAndSaveOrder(CUSTOMER, Collections.singleton(product));
 
-        Optional<Mission> possibleMostOrderedMission = orderStatisticsService.getMostOrderedMission();
+        List<Mission> mostOrderedMissions = orderStatisticsService.getMostOrderedMissions();
 
-        assertTrue(possibleMostOrderedMission.isPresent());
-        assertEquals(mission.getName(), possibleMostOrderedMission.get().getName());
+        assertEquals(mission.getName(), mostOrderedMissions.get(ZERO).getName());
     }
 }

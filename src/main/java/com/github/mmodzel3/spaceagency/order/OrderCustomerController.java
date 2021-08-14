@@ -5,10 +5,12 @@ import com.github.mmodzel3.spaceagency.product.Product;
 import com.github.mmodzel3.spaceagency.product.ProductNotFoundException;
 import com.github.mmodzel3.spaceagency.user.User;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -31,14 +33,14 @@ class OrderCustomerController {
         orderService.makeOrder(user, productIds);
     }
 
-    @GetMapping("/api/orders/most/product")
-    Optional<Product> getMostOrderedProduct() {
-        return orderStatisticsService.getMostOrderedProduct();
+    @GetMapping("/api/orders/most/products")
+    List<Product> getMostOrderedProducts() {
+        return orderStatisticsService.getMostOrderedProducts();
     }
 
-    @GetMapping("/api/orders/most/mission")
-    Optional<Mission> getMostOrderedMission() {
-        return orderStatisticsService.getMostOrderedMission();
+    @GetMapping("/api/orders/most/missions")
+    List<Mission> getMostOrderedMissions() {
+        return orderStatisticsService.getMostOrderedMissions();
     }
 
 }

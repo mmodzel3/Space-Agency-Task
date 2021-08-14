@@ -10,12 +10,15 @@ import java.util.Collections;
 
 import static com.github.mmodzel3.spaceagency.user.UserCustomerRequestBuilder.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class OrderCustomerControllerTests extends OrderTestsAbstract {
     private final static long FAKE_ID = -1;
     private final static int ONE_ORDER = 1;
+
+    private final static int ZERO = 0;
+    private final static int ZERO_PRODUCTS = 0;
+    private final static int ZERO_MISSIONS = 0;
 
     @LocalServerPort
     private int port;
@@ -66,41 +69,41 @@ class OrderCustomerControllerTests extends OrderTestsAbstract {
 
     @Test
     void whenGetMostOrderedProductAndNoOrdersThenNothingReturned() {
-        Product product = given().port(port)
-                .get("/api/orders/most/product")
+        Product[] products = given().port(port)
+                .get("/api/orders/most/products")
                 .then()
                 .statusCode(200)
                 .extract()
-                .as(Product.class);
+                .as(Product[].class);
 
-        assertNull(product);
+        assertEquals(ZERO_PRODUCTS, products.length);
     }
 
     @Test
-    void whenGetMostOrderedProductThenGotCorrectData() {
+    void whenGetMostOrderedProductsThenGotCorrectData() {
         Order order = createAndSaveOrder(CUSTOMER);
         Product orderedProduct = order.getProducts().iterator().next();
 
-        Product product = given().port(port)
-                .get("/api/orders/most/product")
+        Product[] products = given().port(port)
+                .get("/api/orders/most/products")
                 .then()
                 .statusCode(200)
                 .extract()
-                .as(Product.class);
+                .as(Product[].class);
 
-        assertEquals(orderedProduct.getId(), product.getId());
+        assertEquals(orderedProduct.getId(), products[ZERO].getId());
     }
 
     @Test
-    void whenGetMostOrderedMissionAndNoOrdersThenNothingReturned() {
-        Mission mission = given().port(port)
-                .get("/api/orders/most/mission")
+    void whenGetMostOrderedMissionsAndNoOrdersThenNothingReturned() {
+        Mission[] missions = given().port(port)
+                .get("/api/orders/most/missions")
                 .then()
                 .statusCode(200)
                 .extract()
-                .as(Mission.class);
+                .as(Mission[].class);
 
-        assertNull(mission);
+        assertEquals(ZERO_MISSIONS, missions.length);
     }
 
     @Test
@@ -109,13 +112,13 @@ class OrderCustomerControllerTests extends OrderTestsAbstract {
         Product orderedProduct = order.getProducts().iterator().next();
         Mission orderedMission = orderedProduct.getMission();
 
-        Mission mission = given().port(port)
-                .get("/api/orders/most/mission")
+        Mission[] missions = given().port(port)
+                .get("/api/orders/most/missions")
                 .then()
                 .statusCode(200)
                 .extract()
-                .as(Mission.class);
+                .as(Mission[].class);
 
-        assertEquals(orderedMission.getName(), mission.getName());
+        assertEquals(orderedMission.getName(), missions[ZERO].getName());
     }
 }
