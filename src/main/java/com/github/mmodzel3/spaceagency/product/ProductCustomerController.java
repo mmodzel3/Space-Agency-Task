@@ -41,4 +41,10 @@ class ProductCustomerController {
             return productService.findAll();
         }
     }
+
+    @GetMapping("/api/products/covering")
+    List<Product> getProductsCoveringPoint(@RequestParam Double latitude,
+                              @RequestParam Double longitude) {
+        return productService.findCoveringPoint(latitude, longitude);
+    }
 }

@@ -120,4 +120,20 @@ class ProductCustomerControllerTests extends ProductTestsAbstract {
 
         assertEquals(ONE_PRODUCT, products.length);
     }
+
+    @Test
+    void whenGetProductsCoveringPointThenGotCorrectData() {
+        createAndSaveTestMissionAndProduct();
+
+        Product[] products = given().port(port)
+                .param("latitude", TEST_PRODUCT_X2)
+                .param("longitude", TEST_PRODUCT_Y1)
+                .get("/api/products/covering")
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(Product[].class);
+
+        assertEquals(ONE_PRODUCT, products.length);
+    }
 }

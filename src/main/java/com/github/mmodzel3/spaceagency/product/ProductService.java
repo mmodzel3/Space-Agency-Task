@@ -58,6 +58,6 @@ public class ProductService {
     }
 
     List<Product> findCoveringPoint(double x, double y) {
-        return productRepository.findAllByX1GreaterThanEqualAndY1GreaterThanEqualAndX2IsLessThanEqualAndY2IsLessThanEqual(x, y, x, y);
+        return productRepository.findAllByX1LessThanEqualAndY1LessThanEqualAndX2IsGreaterThanEqualAndY2IsGreaterThanEqual(x, y, x, y);
     }
 }

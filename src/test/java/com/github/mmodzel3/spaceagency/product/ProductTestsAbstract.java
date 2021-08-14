@@ -13,8 +13,8 @@ public abstract class ProductTestsAbstract extends MissionTestsAbstract {
     final static int TEST_PRODUCT_PRICE = 200;
     final static double TEST_PRODUCT_X1 = 21.5;
     final static double TEST_PRODUCT_Y1 = 19.5;
-    final static double TEST_PRODUCT_X2 = 22.0;
-    final static double TEST_PRODUCT_Y2 = 20.0;
+    final static double TEST_PRODUCT_X2 = TEST_PRODUCT_X1 + 1.0;
+    final static double TEST_PRODUCT_Y2 = TEST_PRODUCT_Y1 + 1.0;
     final static int TEST_PRODUCT_DATE_DAYS_DIFF = 10;
     final static String TEST_PRODUCT_URL = "http://website.com/file.jpg";
 
