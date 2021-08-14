@@ -45,12 +45,22 @@ abstract class OrderTestsAbstract extends ProductTestsAbstract {
         return Collections.singleton(createAndSaveTestMissionAndProduct().getId());
     }
 
-    void createAndSaveOrder(String username) {
-        Order order = Order.builder()
-                .products(Collections.singleton(createAndSaveTestMissionAndProduct()))
+    Order createOrder(String username, Set<Product> products) {
+        return Order.builder()
+                .products(products)
                 .customer(getActiveUser(username))
                 .build();
+    }
+
+    Order createAndSaveOrder(String username, Set<Product> products) {
+        Order order = createOrder(username, products);
 
         orderRepository.save(order);
+
+        return order;
+    }
+
+    Order createAndSaveOrder(String username) {
+        return createAndSaveOrder(username, Collections.singleton(createAndSaveTestMissionAndProduct()));
     }
 }

@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
-import java.util.Collection;
 import java.util.Collections;
 
 import static com.github.mmodzel3.spaceagency.user.UserCustomerRequestBuilder.given;

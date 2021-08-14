@@ -1,5 +1,6 @@
 package com.github.mmodzel3.spaceagency.order;
 
+import com.github.mmodzel3.spaceagency.product.Product;
 import com.github.mmodzel3.spaceagency.product.ProductNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -45,5 +47,20 @@ class OrderServiceTests extends OrderTestsAbstract {
         List<Order> orders = orderService.findCustomerOrders(getActiveUser(CUSTOMER));
 
         assertEquals(ONE_ORDER, orders.size());
+    }
+
+    @Test
+    void whenGetMostOrderedProductThenGotIt() {
+        createAndSaveOrder(MANAGER);
+
+        Order order = createAndSaveOrder(CUSTOMER);
+        Product product = order.getProducts().iterator().next();
+
+        createAndSaveOrder(CUSTOMER, Collections.singleton(product));
+
+        Optional<Product> possibleMostOrderedProduct = orderService.getMostOrderedProduct();
+
+        assertTrue(possibleMostOrderedProduct.isPresent());
+        assertEquals(product.getId(), possibleMostOrderedProduct.get().getId());
     }
 }

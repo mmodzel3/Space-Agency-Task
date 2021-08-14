@@ -4,13 +4,11 @@ import com.github.mmodzel3.spaceagency.product.Product;
 import com.github.mmodzel3.spaceagency.product.ProductNotFoundException;
 import com.github.mmodzel3.spaceagency.product.ProductService;
 import com.github.mmodzel3.spaceagency.user.User;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 class OrderService {
@@ -41,5 +39,19 @@ class OrderService {
 
     List<Order> findCustomerOrders(User user) {
         return orderRepository.findAllByCustomer(user);
+    }
+
+    Optional<Product> getMostOrderedProduct() {
+        List<Order> orders = orderRepository.findAll();
+
+        Map<Product, Long> productsCounts = orders.stream()
+                .flatMap(order -> order.getProducts().stream())
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+        Optional<Map.Entry<Product, Long>> mostOrderedEntry = productsCounts.entrySet()
+                .stream()
+                .max(Comparator.comparing(Map.Entry::getValue));
+
+        return mostOrderedEntry.map(Map.Entry::getKey);
     }
 }
