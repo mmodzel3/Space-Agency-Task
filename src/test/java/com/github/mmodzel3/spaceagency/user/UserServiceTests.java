@@ -14,7 +14,7 @@ class UserServiceTests extends UserTestsAbstract {
     private UserService userService;
 
     @Test
-    void whenAddUserThenItIsAdded() throws UserExists {
+    void whenAddUserThenItIsAdded() throws UserExistsException {
         User user = User.builder()
                 .username(TEST_USERNAME)
                 .password(TEST_PASSWORD)
@@ -27,7 +27,7 @@ class UserServiceTests extends UserTestsAbstract {
     }
 
     @Test
-    void whenAddExistingUserThenItIsNotAdded() throws UserExists {
+    void whenAddExistingUserThenItIsNotAdded() throws UserExistsException {
         createTestUser();
         
         User user = User.builder()
@@ -36,6 +36,6 @@ class UserServiceTests extends UserTestsAbstract {
                 .role(TEST_ROLE)
                 .build();
 
-        assertThrows(UserExists.class, () -> userService.addUser(user));
+        assertThrows(UserExistsException.class, () -> userService.addUser(user));
     }
 }

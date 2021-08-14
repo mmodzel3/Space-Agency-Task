@@ -1,7 +1,7 @@
 package com.github.mmodzel3.spaceagency;
 
 import com.github.mmodzel3.spaceagency.security.register.RegisterService;
-import com.github.mmodzel3.spaceagency.user.UserExists;
+import com.github.mmodzel3.spaceagency.user.UserExistsException;
 import com.github.mmodzel3.spaceagency.user.UserRole;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -27,7 +27,7 @@ public class InitialUsersLoader implements ApplicationRunner {
         try {
             registerService.register(MANAGER_USERNAME, MANAGER_PASSWORD, UserRole.MANAGER);
             registerService.register(CUSTOMER_USERNAME, CUSTOMER_PASSWORD, UserRole.CUSTOMER);
-        } catch (UserExists ignored) {
+        } catch (UserExistsException ignored) {
 
         }
     }

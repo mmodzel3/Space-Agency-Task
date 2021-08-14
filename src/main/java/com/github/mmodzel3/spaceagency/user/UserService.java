@@ -17,11 +17,11 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    public void addUser(User user) throws UserExists {
+    public void addUser(User user) throws UserExistsException {
         try {
             userRepository.save(user);
         } catch (DataIntegrityViolationException e) {
-            throw new UserExists();
+            throw new UserExistsException();
         }
     }
 }

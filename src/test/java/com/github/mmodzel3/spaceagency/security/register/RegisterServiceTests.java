@@ -1,7 +1,7 @@
 package com.github.mmodzel3.spaceagency.security.register;
 
 import com.github.mmodzel3.spaceagency.user.User;
-import com.github.mmodzel3.spaceagency.user.UserExists;
+import com.github.mmodzel3.spaceagency.user.UserExistsException;
 import com.github.mmodzel3.spaceagency.user.UserService;
 import com.github.mmodzel3.spaceagency.user.UserTestsAbstract;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ class RegisterServiceTests extends UserTestsAbstract {
     private UserService userService;
 
     @Test
-    void whenRegisterNotExistingAccountThenAccountIsCreated() throws UserExists {
+    void whenRegisterNotExistingAccountThenAccountIsCreated() throws UserExistsException {
         registerService.register(TEST_USERNAME, TEST_PASSWORD, TEST_ROLE);
 
         Optional<User> possibleUser = userService.findUser(TEST_USERNAME);
@@ -31,10 +31,10 @@ class RegisterServiceTests extends UserTestsAbstract {
     }
 
     @Test
-    void whenRegisterDuplicatedAccountThenAccountIsNotCreated() throws UserExists {
+    void whenRegisterDuplicatedAccountThenAccountIsNotCreated() throws UserExistsException {
         createTestUser();
 
-        assertThrows(UserExists.class, () ->
+        assertThrows(UserExistsException.class, () ->
                 registerService.register(TEST_USERNAME, TEST_PASSWORD, TEST_ROLE));
     }
 }

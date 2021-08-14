@@ -1,7 +1,7 @@
 package com.github.mmodzel3.spaceagency.security.register;
 
 import com.github.mmodzel3.spaceagency.user.User;
-import com.github.mmodzel3.spaceagency.user.UserExists;
+import com.github.mmodzel3.spaceagency.user.UserExistsException;
 import com.github.mmodzel3.spaceagency.user.UserRole;
 import com.github.mmodzel3.spaceagency.user.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,7 +17,7 @@ public class RegisterService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void register(String username, String password, UserRole userRole) throws UserExists {
+    public void register(String username, String password, UserRole userRole) throws UserExistsException {
         User user = User.builder()
                 .username(username)
                 .password(passwordEncoder.encode(password))
