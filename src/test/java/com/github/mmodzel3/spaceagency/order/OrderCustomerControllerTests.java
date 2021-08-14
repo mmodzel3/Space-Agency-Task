@@ -9,7 +9,8 @@ import org.springframework.boot.web.server.LocalServerPort;
 import java.util.Collections;
 
 import static com.github.mmodzel3.spaceagency.user.UserCustomerRequestBuilder.given;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class OrderCustomerControllerTests extends OrderTestsAbstract {

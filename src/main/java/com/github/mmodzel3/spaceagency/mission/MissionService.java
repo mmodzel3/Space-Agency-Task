@@ -2,8 +2,6 @@ package com.github.mmodzel3.spaceagency.mission;
 
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 class MissionService {
     private final MissionRepository missionRepository;

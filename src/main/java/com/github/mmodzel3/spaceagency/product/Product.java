@@ -1,8 +1,10 @@
 package com.github.mmodzel3.spaceagency.product;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.github.mmodzel3.spaceagency.mission.Mission;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;

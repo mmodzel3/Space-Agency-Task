@@ -1,7 +1,9 @@
 package com.github.mmodzel3.spaceagency.security.register;
 
-import com.github.mmodzel3.spaceagency.user.*;
-import org.junit.jupiter.api.AfterEach;
+import com.github.mmodzel3.spaceagency.user.User;
+import com.github.mmodzel3.spaceagency.user.UserExists;
+import com.github.mmodzel3.spaceagency.user.UserService;
+import com.github.mmodzel3.spaceagency.user.UserTestsAbstract;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

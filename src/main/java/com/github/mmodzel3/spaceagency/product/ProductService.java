@@ -1,7 +1,6 @@
 package com.github.mmodzel3.spaceagency.product;
 
 import com.github.mmodzel3.spaceagency.mission.MissionType;
-import com.github.mmodzel3.spaceagency.user.User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
