@@ -1,5 +1,6 @@
 package com.github.mmodzel3.spaceagency.order;
 
+import com.github.mmodzel3.spaceagency.mission.Mission;
 import com.github.mmodzel3.spaceagency.product.Product;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,21 @@ class OrderStatisticsService {
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
         Optional<Map.Entry<Product, Long>> mostOrderedEntry = productsCounts.entrySet()
+                .stream()
+                .max(Comparator.comparing(Map.Entry::getValue));
+
+        return mostOrderedEntry.map(Map.Entry::getKey);
+    }
+
+    Optional<Mission> getMostOrderedMission() {
+        List<Order> orders = orderRepository.findAll();
+
+        Map<Mission, Long> missionsCounts = orders.stream()
+                .flatMap(order -> order.getProducts().stream())
+                .map(Product::getMission)
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+        Optional<Map.Entry<Mission, Long>> mostOrderedEntry = missionsCounts.entrySet()
                 .stream()
                 .max(Comparator.comparing(Map.Entry::getValue));
 
